@@ -41,7 +41,7 @@ function onSearch(e) {
         })
         .catch(error => console.log(error))
     input.value = '';
-    scrollEnd();
+    
   
 }
 function renderImageCard(image) {
