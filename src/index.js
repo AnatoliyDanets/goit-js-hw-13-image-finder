@@ -5,12 +5,15 @@ import '@pnotify/core/dist/PNotify.css';
 import '@pnotify/desktop/dist/PNotifyDesktop';
 import '@pnotify/core/dist/BrightTheme.css';
 import { error } from '@pnotify/core';
+import * as basicLightbox from 'basiclightbox'
 import getRefs from './js/refs';
 const refs = getRefs();
 
 const apiNewService = new ApiNewService();
 refs.searchForm.addEventListener('submit', onSearch);
 refs.loadBtn.addEventListener('click', onLoadMore);
+refs.gallery.addEventListener('click', imageModalClick);
+
 function onSearch(e) {
     e.preventDefault();
     const form = e.currentTarget;
@@ -61,7 +64,6 @@ function clearArticles() {
 }
 function scrollEnd() {
     setTimeout(() => {
-        
         refs.container.scrollIntoView({
             behavior: 'smooth',
             block: 'end',
@@ -69,3 +71,13 @@ function scrollEnd() {
     }, 800)
 }
 
+function imageModalClick(e) {
+    if (e.target.nodeName !== 'IMG') {
+        return;
+    }
+    const instance = basicLightbox.create(`
+ 
+    <img src="${e.target.dataset.source}" width="800" height="600">`);
+
+    instance.show();
+}
